@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <app-card 
+      [name]="cardForm.value.name" 
+      [expiration]="cardForm.controls.expiration.value" 
+      [cardNumber]="cardForm.get('cardNumber').value" ></app-card
+      >   <!-- all 3 versions for fun -->    
+    </div>
+    <div class="column">
+      <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+        <app-input label="Name" [control]="cardForm.get('name')" ></app-input>
+        <app-input label="Card Number" [control]="cardForm.get('cardNumber')" mask="0000-0000-0000-0000"  ></app-input>
+        <div class="columns">
+          <div class="column">
+            <app-input label="Expiration (MM/YY)" [control]="cardForm.get('expiration')"></app-input>
+          </div>
+          <div class="column">
+            <app-input label="Security Code" [control]="cardForm.get('securityCode')" mask="000"></app-input>
+          </div>
+        </div>
+        <app-input label="Phone Number" [control]="cardForm.get('phoneNumber')" mask="(000)000-0000"></app-input>
+        <div class="buttons">
+          <button class="button is-primary" type="submit" [disabled]="cardForm.invalid" >Submit</button> <!-- .invalid captures collectively all errors of cardForm-->
+          <button class="button is-warning" type="button" (click)="onReset()">Reset</button> 
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<!-- <div>Form Contents: {{ cardForm.value | json }}</div>
+<div>Form is valid: {{ cardForm.valid }}</div>
+<div>Errors around name: {{ cardForm.controls.name.errors | json }}</div> -->
